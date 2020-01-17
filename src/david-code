@@ -1,0 +1,8 @@
+const[num, setNums] = useState(0)
+
+handleClick(){
+	newNum=num+i
+	setNums(newNum)
+}
+<button onClick = {handleClick}></button>
+<div>{num}</div>

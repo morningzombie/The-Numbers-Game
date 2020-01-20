@@ -1,66 +1,98 @@
 import React, { useState } from 'react';
-import Stats from './components/Stats'
-//import All from './components/All'
-import Even from './components/Even'
-import Odd from './components/Odd'
-
 import './index.css'
 
-//function App() {
-// const addNumber = () => {
-//     const num = Math.floor(Math.random() * 1000)
-// }
 let id = 0
-let nums = []
+let evenId = 0
+let oddId = 0
+let evenNum = []
+let oddNum = []
+let allNums = []
+const _data = []
 function App() {
-    let [count, setCount] = useState(0);
-    const handleClick = () => {
-        // console.log("clicked")
-        let newNum = Math.floor(Math.random() * 11)
+    const [count, setCount] = useState(_data);
+
+    const createCount = () => {
         id = id + 1
-        console.log('the new num?', newNum)
-        nums.push(newNum)
-    };
-    console.log(nums)
+        const name = Math.floor((Math.random() * 10) + 1);
+        const currentNum = { id, name };
+        const updated = [...count, currentNum]
+        count.push(currentNum)
+        allNums.push(currentNum.name)
+        setCount(updated)
+        console.log("NUM", currentNum)
+        console.log("count", count)
+
+        if (currentNum.name % 2 === 0) {
+            console.log("NUM is even", currentNum.name)
+            evenNum.push(currentNum.name)
+            evenId = evenId + 1
+        } else {
+            console.log("NUM is odd", currentNum)
+            oddNum.push(currentNum.name)
+            oddId = oddId + 1
+        }
+    }
+    // function onlyUnique(value, index, self) {
+    //     return self.indexOf(value) === index;
+    // }
+    // let uniqueNums = count.filter(onlyUnique);
+    // console.log("UNIQUENUMS", uniqueNums)
+    // let uniqueNumsAmt = uniqueNums.length
+
+    const unique = (value, index, self) => {
+        return self.indexOf(value) === index
+    }
+    const uniqueNums = allNums.filter(unique)
 
     return (
         <div className="flex-container">
             <div>
                 <h1>The Numbers Games</h1>
             </div>
-
-            <button onClick={handleClick}>
-                Add Number</button>
-
+            <button onClick={createCount}>Create Num</button>
             <div className="stats">
                 <h2>Stats</h2>
-                <Stats />
+                <p>{uniqueNums.length} Unique Numbers</p>
+            </div>
+            <div>
+                <h2>All ({id})</h2>
+                <ul>
+                    {
+                        count.map(currentNum => {
+                            return (
+                                <li key={currentNum.id}>{currentNum.name}</li>
+                            )
+                        })
+                    }
+                </ul>
             </div>
 
-
             <div>
-                <h2>All</h2>
-                <p> clicked {count} times</p>
+                <h2>Even ({evenId})</h2>
                 <ul>
-                    {nums.map((number, i) => {
-                        return (
-                            <li key={i}>
-                                {number}
-                            </li>
-                        )
-                    })
+                    {
+                        evenNum.map(even => {
+                            return (
+                                <li>{even}</li>
+                            )
+                        })
                     }
                 </ul>
             </div>
             <div>
-                <h2>Even</h2>
-                <Even />
+                <h2>Odd ({oddId})</h2>
+                <ul>
+                    {
+                        oddNum.map(odd => {
+                            return (
+                                <li>{odd}</li>
+                            )
+                        })
+                    }
+                </ul>
             </div>
-            <div>
-                <h2>Odd</h2>
-                <Odd />
-            </div>
-        </div>
+
+        </div >
 
     );
 }

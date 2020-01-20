@@ -40,9 +40,9 @@ margin-right: auto;
   }
 
  li {
-    line-height: 1.3em;
+    line-height: 1em;
     text-align: left;
-    margin: 10px 5px;
+    margin: 5px 5px;
   }
   button {
     width:10%;
@@ -51,3 +51,5 @@ margin-right: auto;
     margin-right: auto;
     margin-bottom:10px;
   }
+  h2, p {margin:0;
+    line-height: 1.1;}
